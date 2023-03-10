@@ -1,0 +1,1 @@
+#tu primer programa hola mundo con la libreria open cv
