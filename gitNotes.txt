@@ -1,0 +1,25 @@
+algunos comandos o intrucciones para git hub
+
+para clonar el un repositorio se usa git clone y pegamos el link del repositorioque se puede conseguir en el boton verde de code de git hub, ejemplo
+
+git clone https://github.com/KevinArmando/deteccionOcular.git
+
+para revisar la rama en que estamos se usa git branch, esto nos mostrata las ramas que existen y tambien en la que estamos la marcara con un asterisco. Ejemplo
+
+git branch
+
+Si el comando se usa con un parametro de tipo texto entonces crea una nueva rama
+con el identificador que se paso como parametro. Ejemplo
+
+git branch steve
+
+para hacer comit primero debemos revisar el etado del repositorio con el comandogit status que nos mostrara que documentos son nuevos o cuales fueron modificados al estar de color rojo, para que se pueda hacer el commit se deben agregar loscambios con el comando git add seguido del nombre del archivo que se modifico. Ejemplo
+
+git add hola.py
+
+Si todos los documentos se van a subir al repositorio se puede usar el comando 
+git add --all, esto no es recomendado si no se revisa bien que archivos se van subir o si hay archivos compartidos. Luego de agregar los cambios se usa el comando git cimmit -m "mensaje" para carga el commmit hacia el repositorio, entre los parentesis se agrega un mensaje que se mostrara en el commit, luego de cargar 
+el commit se usa el comando git push para enviar los cambios a la pagina de git y se pedira ingresar el nombre de la cuenta que hace el push y tambien pedira lacontraseña pero no es la contraseña con la que se inicia sesion si no un token 
+que se tiene que crear desde la aplicacion del navegador
+
+  
