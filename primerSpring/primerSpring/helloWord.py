@@ -1,1 +1,5 @@
-#empezare con un hola mundo 
+#empezare con un hola mundo
+
+
+
+print("hola mundo ")
