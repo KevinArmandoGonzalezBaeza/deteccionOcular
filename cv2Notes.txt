@@ -1,0 +1,8 @@
+cv2.VideoCapture() habre un archivo de video o una secuencia de archivos de imagen o un dispositivo de captura o un flujo de video ip para la captura de video
+
+La funcion esa sobrecargada, los parametros son: 
+index de camara del dispositivo de caputra de video que se quiere abrir, para
+abrir la camara por defecto usando el backend por defecto, se pasa 0 como unico parametro. Se utiliza domain_offset para aplicar una implementacion de lector especifica si hay varias disponibles como cap_ffmpeg p cap_images.
+Ejemplo 0+cv::cap_msmf
+
+
