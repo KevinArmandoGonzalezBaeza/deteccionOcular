@@ -1,2 +1,2 @@
 # deteccionOcular.
-desaroollo del proyecto de I.A
+desarollo del proyecto de I.A
