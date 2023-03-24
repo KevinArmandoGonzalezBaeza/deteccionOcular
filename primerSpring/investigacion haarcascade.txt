@@ -1,0 +1,18 @@
+La detección de objetos mediante clasificadores en cascada basados en funciones de Haar 
+es un método eficaz de detección de objetos propuesto por Paul Viola y Michael Jones 
+a de un enfoque basado en el aprendizaje automático en el que la función en cascada 
+se entrena a partir de muchas imágenes positivas y negativas. 
+Luego se utiliza para detectar objetos en otras imágenes.
+
+Aquí trabajaremos con la detección de rostros o caras. Inicialmente,
+  el algoritmo necesita muchas imágenes positivas (imágenes de caras) y negativas
+ (imágenes sin caras) para entrenar al clasificador. Entonces necesitamos extraer 
+rasgos de él.
+
+Para ello se utilizan las características de Haar mostradas en la imagen inferior. 
+Son como nuestro núcleo convolucional. Cada característica es un valor individual 
+obtenido restando la suma de píxeles bajo rectángulo blanco de la suma de píxeles 
+bajo rectángulo negro.
+
+
+
