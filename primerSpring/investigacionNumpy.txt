@@ -1,0 +1,36 @@
+NumPy es una librería de Python especializada en el cálculo numérico 
+y el análisis de datos, especialmente para un gran volumen de datos.
+
+Incorpora una nueva clase de objetos llamados arrays que permite 
+representar colecciones de datos de un mismo tipo en varias dimensiones, 
+y funciones muy eficientes para su manipulación.
+
+La ventaja de Numpy frente a las listas predefinidas en Python es que el 
+procesamiento de los arrays se realiza mucho más rápido (hasta 50 veces más) 
+que las listas, lo cual la hace ideal para el procesamiento de vectores y 
+matrices de grandes dimensiones.
+
+Numpy tiene una amplia gama de opciones para trabajar, entre ellas están el dominio 
+del álgebra lineal, la transformación de Fourier y las matrices.
+
+Los objetos de arrays en Numpy se denominan ndarray 
+y se encuentran en el núcleo del paquete de la librería. 
+Los ndarrays capturan arrays con n_dimensiones y diferentes tipos de datos.
+
+Una de las grandes ventajas de los arrays de Numpy es que son bastante ordenados, 
+ya que, a diferencia de las listas en Python (que crecen de manera dinámica), 
+este tipo de matrices ya tienen un tamaño fijo en su creación. 
+De modo que cambiar el tamaño de un ndarray creará una nueva matriz 
+y eliminará la original.
+
+Es necesario que todos los elementos de un array tengan el mismo tipo de datos, porque así tendrán el mismo tamaño en memoria. La única excepción es que se pueden tener matrices de objetos, lo cual permite las matrices de elementos de diferentes tamaños.
+
+Las matrices de Numpy son mucho mejores que las listas en muchas ocasiones, 
+ya que se almacenan en un lugar continuo en la memoria, 
+a diferencia de las listas. Por tanto, durante las transacciones es mucho más rápido 
+acceder a ellas y manipularlas. Esto es lo que se conoce como cercanía de referencias 
+o locality of reference.
+
+Una de las grandes ventajas de los arrays de Numpy es que permiten 
+crear operaciones matemáticas de alta complejidad. Al mismo tiempo, se puede trabajar 
+con ecuaciones lineales de álgebra lineal o estructuras de datos, entre otras operaciones.
