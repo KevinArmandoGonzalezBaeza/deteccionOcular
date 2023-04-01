@@ -1,0 +1,59 @@
+Es un algoritmo de visión por computador, capaz de obtener una representación visual de una imagen y extraer una información detallada y específica del contenido. Esta información es tratada para realizar operaciones como por ejemplo la localización y reconocimiento de determinados objetos, personas o caras, realización de escenas 3D, seguimiento de objetos y extracción de puntos de interés. Este algoritmo forma parte de la mencionada inteligencia artificial, capaz de entrenar un sistema para que interprete imágenes y determine el contenido.
+
+SURF, es un detector y un descriptor de alto rendimiento de los puntos de interés de una imagen, donde se transforma la imagen en coordenadas, utilizando una técnica llamada multi-resolución. Consiste en hacer una réplica de la imagen original de forma Piramidal Gaussiana o Piramidal Laplaciana, y obtener imágenes del mismo tamaño pero con el ancho de banda reducido. De esta manera se consigue un efecto de borrosidad sobre la imagen original, llamado Scale-Space. Esta técnica asegura que los puntos de interés son invariantes en el escalado. El algoritmo SURF está basado en el predecesor SIFT.
+
+Etapas 
+
+Deteccion: El algoritmo de SURF está basado en los mismos principios y pasos que el SIFT, pero utiliza un esquema diferente y esto debería proveer mejores resultados: más rapidez. Con el fin de detectar puntos característicos en una escala de manera invariable SIFT utiliza filtros de aproximación en cascada. Donde la Diferencia de Gaussianos, DOG, se calcula sobre imágenes re-escaladas progresivamente. 
+
+Imagen integral: En vez de utilizar gaussianas para promediar la imagen, se utilizan cuadrados (aproximaciones). Hacer la convolución de la imagen con un cuadrado es mucho más rápido si se utiliza la imagen integral. 
+La suma de la imagen original dentro de un rectángulo D de la imagen se puede evaluar rápidamente utilizando esta imagen integral. I (x, y) sumada sobre el área seleccionada requiere 4 evaluaciones de S (x, y) (A, B, C, D) 
+
+Puntos de interes en la matriz hessiana: SURF utiliza un detector de BLOB (Binary Large Object) basado en el Hessiano para encontrar puntos de interés. El determinante de la matriz Hessiana expresa la extensión de la respuesta y es una expresión de un cambio local alrededor del área. 
+El detector se basa en la matriz Hessiana, debido a su buen desempeño en la precisión. Más precisamente, se detectan estructuras BLOB en lugares donde el factor determinante es el máximo. En contraste con el detector de Hess - Laplace para Mikolajczyk y Schmid, se basa en el determinante de la Hessiana también para la selección de escala, como se hace por Lindeberg. 
+
+Los Filtros Gaussianos son óptimos para el análisis de la escala - espacio, pero en la práctica deben ser discretizados y recortados. Esto conduce a una pérdida en la repetibilidad en rotaciones de imagen en torno a los múltiples impares de π / 4. Esta debilidad que vale para los detectores basados en Hessiano en general. La repetibilidad alcanza un máximo alrededor de múltiplos de π / 2. Esto se debe a la forma cuadrada del filtro. Sin embargo, los detectores todavía funcionan bien, la discretización tiene un ligero efecto en el rendimiento. Como los filtros reales no son ideales, en todo caso, y dado el éxito de Lowe con sus aproximaciones logarítmicas, empujan a la aproximación de la matriz Hessiana aún más con los filtros cuadrados Estos filtros de segundo orden Gaussianos aproximados pueden ser evaluados con un coste computacional muy bajo con el uso de imágenes integrales. Por lo tanto, el tiempo de cálculo es independiente del tamaño del filtro. Estas son algunas aproximaciones: Gyy y Gxy
+
+Los box filters de 9x9 son aproximaciones de un Gaussiano con σ = 1.2 y representa la escala más baja (resolución espacial más alta) para computarizado los mapas de respuesta BLOB.
+
+Se denota Dxx, Dyy, Dxy. Las ponderaciones aplicadas a las regiones rectangulares son mantenidas por la eficiencia de la CPU.
+
+Se calculan las imágenes: -Dxx (x, y) a partir de I (x, y) y Gxx (x, y) -Dxy (x, y) a partir de I (x, y) y Gxy (x, y ) -Dyy (x, y) a partir de I (x, y) y Gxyyx, y).
+
+La ponderación relativa ( w w) de la respuesta del filtro es utilizado para balancear la expresión por el determinante Hessiano. Es necesario para la conservación de la energía entre los kernels Gaussianos y los kernels Gaussianos aproximados. 
+
+El factor de 0,9 aparece como un factor de corrección al utilizar cuadrados en vez de gaussianos. Se pueden generar varias imágenes det (H) por varios tamaños de filtros. Esto se denomina análisis multi-resolución. 
+
+Los cambios de ponderación dependen de la escala σ. En la práctica, se mantiene este factor constante. Como se mantiene constante? Normalizando la respuesta del filtro respecto a su tamaño. Esto garantiza la norma de Frobenius por cualquier otro filtro.
+
+La aproximación del determinante de la matriz Hessiana representa la respuesta BLOB en la imagen en la localización x. Estas respuestas son almacenadas en el mapa de respuestas BLOB sobre diferentes escalas.
+
+Seguidamente se pasa a buscar los máximos locales. 
+
+Representacion espacio escala y localizacion de los puntos de interes: Los puntos de interés deben ser encontrados en diferentes escalas, entre otras cosas porque la búsqueda de correspondencias a menudo requiere su comparación en las imágenes donde se les ve a diferentes escalas. Los espacios escala se aplican en general como una pirámide de imagen. Las imágenes se suavizan repetidamente con un filtro gaussiano y luego, se submuestrea a fin de conseguir un nivel superior de la pirámide.
+
+Después se buscan los máximos 3D en (x, y, n) utilizando el cubo de vecindad 3x3x3. A partir de ahí se procede a hacer la interpolación del máximo. Lowe resto estas capas de la pirámide para conseguir que el DOG (Diferencia de gaussianas) encuentre en las imágenes los contornos y las manchas.
+
+En concreto, se utiliza una variante rápida introducida por Neubecker y Van Gool. Los máximos del determinante de la matriz Hessiana interpolan en escala y espacio de la imagen con el método propuesto por Brown y Lowe. La aproximación del determinante de la matriz Hessiana representa la respuesta de BLOB en la imagen a la localización x. Estas respuestas son almacenadas en el mapa de respuestas de BLOB sobre diferentes escalas. 
+
+Descripcion: El objetivo de un descriptor es proporcionar una descripción única y robusta de un conjunto. Describe la distribución de intensidad del contenido dentro del punto de interés de los puntos vecinos. Es generado basándose en el área circundante de un punto de interés, por lo que, realmente, se obtiene un vector descriptor para cada punto de interés.
+
+La dimensión del descriptor tiene un impacto directo con el tiempo de adquisición que se toma. De modo que, pocas dimensiones son indeseables por el "matching" de los puntos de interés, aunque proporciona menos distinciones que una dimensión mayor. 
+
+A continuación se demuestra todo el procedimiento que se lleva a cabo con el fin de realizar el proceso del descriptor.
+
+El primer paso para obtener el descriptor una vez calculado el escalado es el cálculo de la orientación del punto de interés. Para obtener un punto invariante a las rotaciones, iluminación y orientación se utiliza el wavelet de Haar sobre las direcciones de x e y en una región circular de radio 6s, siendo s es la escala del punto de interés. Los puntos de interés de SURF tienen la característica principal de repetibilidad, que quiere decir que si un punto es considerado fiable, el detector encontrará el mismo punto bajo diferentes puntos de vista (escala, orientación, rotación, etc). 
+
+Se tiene una posición (x, y) para cada punto de interés.
+
+Realizadas las respuestas Wavelet Haar con un Gaussiano centrado en el punto de interés, las respuestas son representadas como puntos en el espacio, donde la respuesta horizontal la tenemos en la abscisa y la respuesta vertical en la ordenada.
+
+Una vez calculados para todos los vecinos, se estima la orientación dominante calculando la suma de todos los resultados dentro de una ventana deslizante que cubre un ángulo de π / 3 {\displaystyle \pi /3}.
+
+Se suman la respuesta horizontal y vertical con la ventana. El vector más largo de las ventanas es lo que define la orientación del punto de interés. El tamaño de esta ventana debe tomarse en cuenta ya que si es demasiado pequeña, tendrá un solo gradiente dominante y si es demasiado grande, tenderá a dar tamaños de vector máximo que no representan la realidad correctamente.
+
+Ahora, el cálculo del descriptor se realiza construyendo, primeramente, una región cuadrada centrada en el punto de interés y con un tamaño de 20s (figura)
+
+La región de interés se divide regularmente en 4x4 subregiones cuadradas, y para cada una de ellas se calculan unas características simples, el Wavelet de Haar para x e y, y se suavizan los resultados mediante un filtro Gaussiano (para ofrecer una mayor robustez a deformaciones, ruido y traslaciones), obteniendo dx y dy. El tamaño de este es de 2s, La verticalidad (si es horizontal o vertical) se define ahora respecto la orientación del punto de interés. 
+
+

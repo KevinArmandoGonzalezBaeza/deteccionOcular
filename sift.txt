@@ -1,0 +1,33 @@
+Es un algoritmo usado en visión artificial para extraer características relevantes de las imágenes que posteriormente pueden usarse en reconocimiento de objetos, deteccion de movimiento, esteropsis, registro de la imagen y otras tareas, 
+
+La deteccion de caracteristicas hace referencia a la tare de localizar en una imagen puntos tanto relevantes en cuanto a la cantidad de informacion de su entorno como estables frente a las perturbaciones y transformaciones locales y globlales que pueden sufrir la imagen. Esto garantiza que los puntos se puedan detectar de forma confiable y con mucha exactitud al realizar esta tarea de forma repetitiva. 
+
+Deteccion de extremos en la escala-espacio
+
+La primera etapa es aplicar la diferencia gaussiana con distintos tamaños de región t y buscar máximos locales a lo largo tanto del espacio determinado por las coordenadas x, e, y en la imagen como de la escala determinada por t.
+
+Para una escala t dada la diferencia gaussiana da una fuerte respuesta para esquinas de tamaño tal que encaja con dicha escala. Por tanto en esta etapa se compara cada punto del escala-espacio con los valores de sus vecinos en la misma escala —por ejemplo sus 8 vecinos más próximos— y en las escalas anteriores y posteriores —por ejemplo los 9 puntos vecinos en la escala inmediatamente anterior y los 9 puntos de la escala inmediatamente posterior—. 
+
+Localizacion de puntos de interes
+
+La localización de cada punto de interés encontrado se refina a precisión sub-pixel usando la expansión de serie de Taylor del escala-espacio. Si el valor del punto extremo encontrado es menor que cierto umbral, el punto es descartado.
+
+Además la diferencia gaussiana también da un fuerte respuesta en los bordes, por lo que éstos deben ser eliminados. Para eso SIFT usa una matriz hessiana para calcular las curvaturas principales, de tal forma que solo son interesantes aquellos puntos de interés para los ambos autovalores de la matriz hessiana no difieren en un orden de magnitud o más; pues dichos puntos probablemente correspondan con bordes en la imagen y no con esquinas.
+
+Asignacion de orientaciones
+
+A continuación se asigna una orientación a cada punto de interés para garantizar la invarianza respecto a la rotación de las imágenes.
+
+Para ello se toman los puntos vecinos en torno a cada punto de interés —en función de la escala— y se calcula la magnitud y dirección del gradiente. Entonces se hace un histograma de dichas direcciones ponderado por la magnitud del gradiente. El mayor pico en el histograma indica la orientación del punto de interés. Si existen otros picos por encima del 80% del más importante, se usan para crear otros puntos de interés en la misma posición y escala pero con diferente orientación. 
+
+Descriptor de punto de interes
+
+A continuación se crean los descriptores de los puntos de interés.
+
+Para cada punto se toma un vecindario de 16 x 16 puntos. Este, a su vez, se divide en sub-bloques de tamaño 4 x 4 y para cada uno se crea un histograma de orientaciones. La concatenación en un vector de los valores de las cajas de cada histograma para los 16 sub-bloques del punto de interés constituye su descriptor. 
+
+Correspondencia de punto de interes
+
+La correspondencia entre los puntos de interés de dos imágenes se obtiene a través de una búsqueda del punto más próximo en el espacio de los descriptores de puntos de interés. Sin embargo, en ocasiones el segundo punto más próximo puede estar muy cerca del primero por culpa del ruido. Por eso se calcula la razón entre la distancia al más cercano y al segundo más cercano y si ésta está por encima de cierto umbral, los puntos son descartados.
+
+
