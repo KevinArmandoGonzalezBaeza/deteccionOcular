@@ -1,4 +1,5 @@
 #se importa la libreria de opencv
+
 import cv2
 
 #se crea el objeto de captura, en este caso se indica que sera la camara por defecto de la computadora por que se pasa el indice 0

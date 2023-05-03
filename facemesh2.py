@@ -27,7 +27,7 @@ with mp_face_mesh.FaceMesh(
                     mp_drawing.DrawingSpec(color=(255, 0, 255), thickness=1))
 
         cv2.imshow("Frame", frame)
-        k = cv2.waitKey(1) & 0xFF
+        k = cv2.waitKey(1000) & 0xFF
         if k == 27:
             break
 
