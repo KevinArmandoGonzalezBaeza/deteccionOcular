@@ -18,9 +18,11 @@ while (cam.isOpened()):
         for id, landmark in enumerate(landMarks[474:478]):
             #x=landMarks[474].x
             #y=landMarks[474].y
-            x=int(landMarks[474].x * frameW)
-            y=int(landMarks[474].y * frameH)
+            x=int(landMarks[374].x * frameW)
+            y=int(landMarks[374].y * frameH)
             cv2.circle(frame,(x,y),3,(0,0,255))
+            if (cv2.waitKey(1)==ord('w')):
+                pyautogui.click(button="right")
            # if id==1:
                # screenX=(screenW/frameW)*x
                # screenY=(screenH/frameH)*y
