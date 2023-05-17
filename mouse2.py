@@ -4,7 +4,7 @@ import pyautogui
 cam = cv2.VideoCapture(0)
 face_mesh = mp.solutions.face_mesh.FaceMesh(refine_landmarks=True)
 screen_w, screen_h = pyautogui.size()
-while True:
+while (cam.isOpened()):
     _, frame = cam.read()
     frame = cv2.flip(frame, 1)
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -26,8 +26,13 @@ while True:
             x = int(landmark.x * frame_w)
             y = int(landmark.y * frame_h)
             cv2.circle(frame, (x, y), 3, (0, 255, 255))
-        if (left[0].y - left[1].y) < 0.004:
-            pyautogui.click()
+        if (left[0].y - left[1].y) < 0.002:
+            pyautogui.click(button="right")
             pyautogui.sleep(1)
     cv2.imshow('Eye Controlled Mouse', frame)
-    cv2.waitKey(1)
+    if (cv2.waitKey(1)==ord('s')):
+       break
+
+cam.release()
+cv2.destroyAllWindows()
+
