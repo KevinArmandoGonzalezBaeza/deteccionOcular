@@ -29,6 +29,14 @@ while (cam.isOpened()):
         if (left[0].y - left[1].y) < 0.002:
             pyautogui.click(button="right")
             pyautogui.sleep(1)
+        #right=[landmarks[373], landmarks[387]]
+        #for landmark in right:
+            #x=int(landmark.x * frame_w)
+            #y=int(landmark.x * frame_h)
+            #cv2.circle(frame, (x,y), 3,(0,255,255))
+        #if (right[0].y - right[1].y) < 0.002:
+            #pyautogui.click(button="right")
+            #pyautogui.sleep(1)
     cv2.imshow('Eye Controlled Mouse', frame)
     if (cv2.waitKey(1)==ord('s')):
        break
