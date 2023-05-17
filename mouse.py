@@ -3,7 +3,7 @@ import mediapipe
 import pyautogui
 
 cam = cv2.VideoCapture(0)
-faceMesh=mediapipe.solutions.face_mesh.FaceMesh(refine_landmarks=True)
+faceMesh=mediapipe.solutions.face_mesh.FaceMesh(static_image_mode=False, refine_landmarks=True)
 screenW, screenH=pyautogui.size()
 
 while (cam.isOpened()):
@@ -16,13 +16,15 @@ while (cam.isOpened()):
     if (landMarkPoints):
         landMarks=landMarkPoints[0].landmark
         for id, landmark in enumerate(landMarks[474:478]):
-            x=int(landmark.x * frameW)
-            y=int(landmark.y * frameH)
+            #x=landMarks[474].x
+            #y=landMarks[474].y
+            x=int(landMarks[474].x * frameW)
+            y=int(landMarks[474].y * frameH)
             cv2.circle(frame,(x,y),3,(0,0,255))
-            if id==1:
-                screenX=(screenW/frameW)*x
-                screenY=(screenH/frameH)*y
-                pyautogui.moveTo(screenX,screenY)
+           # if id==1:
+               # screenX=(screenW/frameW)*x
+               # screenY=(screenH/frameH)*y
+               # pyautogui.moveTo(screenX,screenY)
             
 
     #print(landMarkPoints)
