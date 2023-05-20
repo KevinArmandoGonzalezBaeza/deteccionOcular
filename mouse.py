@@ -1,12 +1,14 @@
 import cv2
 import mediapipe
 import pyautogui
+import time
 
 #473 es el punto de iris
 
 cam = cv2.VideoCapture(0)
-faceMesh=mediapipe.solutions.face_mesh.FaceMesh(static_image_mode=False, refine_landmarks=True)
+faceMesh=mediapipe.solutions.face_mesh.FaceMesh(refine_landmarks=True)
 screenW, screenH=pyautogui.size()
+wingNum=0
 
 while (cam.isOpened()):
     ret, frame=cam.read()
@@ -34,7 +36,7 @@ while (cam.isOpened()):
             x=int(landmark.x*frameW)
             y=int(landmark.y*frameH)
             cv2.circle(frame, (x,y),3,(0,0,255))
-        if (right[0].y-right[1].y)< 0.002:
+        if (right[0].y-right[1].y)< 0.002 and (left[0].y-left[1].y)>0.002:
             pyautogui.click(button="right")
             pyautogui.sleep(1)
 
@@ -44,9 +46,23 @@ while (cam.isOpened()):
             x=int(landmark.x*frameW)
             y=int(landmark.y*frameH)
             cv2.circle(frame, (x,y),3,(0,255,255))
-        if (left[0].y-left[1].y) < 0.002:
+            #print("ord:",x)
+            #print("ord:",y)
+        if (left[0].y-left[1].y) < 0.002 and (right[0].y-right[1].y)>0.002:
             pyautogui.click()
-            pyautogui.sleep(1)
+            pyautogui.sleep(1) 
+            #print(left[0].y-left[1].y)
+            #wingNum+=1
+            #time.sleep(2)
+            #if(wingNum==1):
+              #pyautogui.click(button="right")
+              #print("click")
+              #wingNum=0
+            #elif(wingNum==2):
+              #print("abre una app")
+              #wingNum=0
+            #pyautogui.click()
+            #pyautogui.sleep(1)
 
             #x=int(landMarks[6].x * frameW)
             #y=int(landMarks[6].y * frameH)
@@ -57,7 +73,7 @@ while (cam.isOpened()):
                # screenX=(screenW/frameW)*x
                # screenY=(screenH/frameH)*y
                # pyautogui.moveTo(screenX,screenY)
-            
+
 
     #print(landMarkPoints)
     cv2.imshow('eye',frame)
