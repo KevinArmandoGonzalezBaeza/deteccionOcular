@@ -29,7 +29,7 @@ while (cam.isOpened()):
         if (left[0].y - left[1].y) < 0.002:
             pyautogui.click(button="right")
             pyautogui.sleep(1)
-        #right=[landmarks[373], landmarks[387]]
+        right=[landmarks[373], landmarks[387]]
         #for landmark in right:
             #x=int(landmark.x * frame_w)
             #y=int(landmark.x * frame_h)
