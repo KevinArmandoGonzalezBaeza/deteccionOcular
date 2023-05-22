@@ -21,8 +21,11 @@ instalacion de libreria  pyautogui:
 
 En Windows, puede usar el py.exeprograma para ejecutar la última versión de Python,
 comandos: 
+
 py -m pip install pyautogui
-Si tiene varias versiones de Python instaladas, puede seleccionar cuál con un argumento de línea de comando para py. Por ejemplo, para Python 3.8, ejecute:
+Si tiene varias versiones de Python instaladas, puede seleccionar cuál con un argumento de línea de comando para py. 
+
+Por ejemplo, para Python 3.8, ejecute:
 
 py -3.8 -m pip install pyautogui
 
