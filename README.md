@@ -56,7 +56,7 @@ py ./mouse.py
 
 Ubuntu / Debian:
 
-python3 comparacion.py
+python3 mouse.py
 
 
 
