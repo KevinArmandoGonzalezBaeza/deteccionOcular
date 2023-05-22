@@ -23,6 +23,8 @@ En Windows, puede usar el py.exeprograma para ejecutar la última versión de Py
 comandos: 
 
 py -m pip install pyautogui
+
+
 Si tiene varias versiones de Python instaladas, puede seleccionar cuál con un argumento de línea de comando para py. 
 
 Por ejemplo, para Python 3.8, ejecute:
