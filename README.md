@@ -1,5 +1,5 @@
-# deteccionOcular.
-desarollo del proyecto de I.A
+# DeteccionOcular.
+Desarollo del proyecto de I.A
 
 ## Requerimientos
 
